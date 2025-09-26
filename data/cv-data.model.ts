@@ -2,6 +2,7 @@ export interface CVData {
 	personal: {
 		name: string;
 		title: string;
+		summary: string;
 		location: string;
 		email: string;
 		phone: string;
@@ -10,7 +11,6 @@ export interface CVData {
 		github?: string;
 		telegram?: string;
 	};
-	summary: string;
 	languages: Array<{
 		language: string;
 		proficiency: "Native" | "Fluent" | "Advanced" | "Intermediate" | "Basic";

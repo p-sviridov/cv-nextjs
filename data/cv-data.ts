@@ -5,15 +5,16 @@ export const cvData: CVData = {
 		name: "Pavel Sviridov",
 		title: "Frontend Web Developer",
 		email: "pavlentiysv@gmail.com",
-		phone: "+1 (248) 252-2624",
+		phone: "+12482522624",
 		location: "Birmingham, Michigan, USA",
 		linkedin: "https://linkedin.com/in/p-sviridov",
 		github: "https://github.com/p-sviridov",
+		// telegram: "https://t.me/pavlentiysv",
+		summary: `Experienced and proactive web developer with 4+ years of professional experience in Angular,
+	React, and Vue. Skilled team player. Open-minded to innovative technologies. Proven track
+	record of delivering high-quality web apps and achieving project milestones in a timely manner.
+	Passionate to bring useful software making people's lives easier.`,
 	},
-	summary: `Experienced and proactive web developer with 4+ years of professional experience in Angular,
-React, and Vue. Skilled team player. Open-minded to innovative technologies. Proven track
-record of delivering high-quality web apps and achieving project milestones in a timely manner.
-Passionate to bring useful software making people's lives easier.`,
 	languages: [
 		{
 			language: "English",
