@@ -2,14 +2,19 @@ export interface CVData {
 	personal: {
 		name: string;
 		title: string;
+		location: string;
 		email: string;
 		phone: string;
-		location: string;
 		website?: string;
 		linkedin?: string;
 		github?: string;
+		telegram?: string;
 	};
 	summary: string;
+	languages: Array<{
+		language: string;
+		proficiency: "Native" | "Fluent" | "Advanced" | "Intermediate" | "Basic";
+	}>;
 	experience: Array<{
 		company: string;
 		position: string;
@@ -22,21 +27,13 @@ export interface CVData {
 	}>;
 	education: Array<{
 		institution: string;
-		degree: string;
-		field: string;
-		location: string;
+		description: string;
+		location?: string;
 		startDate: string;
 		endDate?: string;
-		current: boolean;
 		gpa?: string;
-		relevantCoursework?: string[];
+		url?: string;
 	}>;
-	skills: {
-		technical: string[];
-		languages: string[];
-		tools: string[];
-		soft: string[];
-	};
 	projects: Array<{
 		name: string;
 		description: string;
@@ -45,16 +42,10 @@ export interface CVData {
 		github?: string;
 		startDate: string;
 		endDate?: string;
-		highlights: string[];
+		highlights?: string[];
 	}>;
-	certifications: Array<{
-		name: string;
-		issuer: string;
-		date: string;
-		url?: string;
-	}>;
-	languages: Array<{
-		language: string;
-		proficiency: "Native" | "Fluent" | "Advanced" | "Intermediate" | "Basic";
-	}>;
+	skills: {
+		primary: string[];
+		secondary: string[];
+	};
 }

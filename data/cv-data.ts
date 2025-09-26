@@ -2,103 +2,93 @@ import { CVData } from "./cv-data.model";
 
 export const cvData: CVData = {
 	personal: {
-		name: "Your Name",
-		title: "Your Professional Title",
-		email: "your.email@example.com",
-		phone: "+1 (555) 123-4567",
-		location: "City, State, Country",
-		website: "https://yourwebsite.com",
-		linkedin: "https://linkedin.com/in/yourprofile",
-		github: "https://github.com/yourusername",
+		name: "Pavel Sviridov",
+		title: "Frontend Web Developer",
+		email: "pavlentiysv@gmail.com",
+		phone: "+1 (248) 252-2624",
+		location: "Birmingham, Michigan, USA",
+		linkedin: "https://linkedin.com/in/p-sviridov",
+		github: "https://github.com/p-sviridov",
 	},
-	summary:
-		"Write a compelling professional summary that highlights your key strengths, experience, and career objectives. Keep it concise but impactful, typically 2-3 sentences.",
+	summary: `Experienced and proactive web developer with 4+ years of professional experience in Angular,
+React, and Vue. Skilled team player. Open-minded to innovative technologies. Proven track
+record of delivering high-quality web apps and achieving project milestones in a timely manner.
+Passionate to bring useful software making people's lives easier.`,
+	languages: [
+		{
+			language: "English",
+			proficiency: "Fluent",
+		},
+		{
+			language: "Russian",
+			proficiency: "Native",
+		},
+		{
+			language: "Belarusian",
+			proficiency: "Native",
+		},
+		{
+			language: "Polish",
+			proficiency: "Basic",
+		},
+	],
 	experience: [
 		{
-			company: "Company Name",
-			position: "Job Title",
-			location: "City, State",
-			startDate: "2023-01",
-			endDate: "2024-12",
+			company: "Entrega Systems Group, Inc.",
+			position: "Frontend Developer",
+			location: "Minsk, Belarus",
+			startDate: "10/2021",
+			current: true,
+			description: [
+				"Responsible for front-end development of web apps for GM, using Angular, React, Vue.",
+				"Automated testing with Mocha and Selenium, manual testing and test case writing.",
+				"Experience working on .Net Core + Razor Pages project.",
+			],
+			// TODO: add technologies and more detailed description
+			technologies: [
+				"TypeScript",
+				"JavaScript",
+				"Angular",
+				"React",
+				"Vue",
+				"AEM",
+				"Edge Delivery Service",
+				"SharePoint",
+				"Mocha",
+				"Selenium",
+				"Razor Pages",
+				".Net Core",
+			],
+		},
+		{
+			company: "Hiqo Solutions",
+			position: "Frontend Developer",
+			location: "Minsk, Belarus",
+			startDate: "09/2019",
+			endDate: "05/2021",
 			current: false,
 			description: [
-				"Describe your key responsibilities and achievements",
-				"Use action verbs and quantify results when possible",
-				"Highlight technologies and methodologies used",
+				"Responsible for front-end development of web apps, primarily using TypeScript/Angular/Firebase.",
+				"Daily communication with clients and team from the USA.",
 			],
-			technologies: ["React", "TypeScript", "Node.js", "AWS"],
+			technologies: ["TypeScript", "Angular", "Firebase"],
 		},
 	],
 	education: [
 		{
-			institution: "University Name",
-			degree: "Bachelor of Science",
-			field: "Computer Science",
-			location: "City, State",
-			startDate: "2019-09",
-			endDate: "2023-05",
-			current: false,
-			gpa: "3.8/4.0",
-			relevantCoursework: [
-				"Data Structures and Algorithms",
-				"Software Engineering",
-				"Database Systems",
-				"Machine Learning",
-			],
+			institution:
+				"Belarusian State University of Informatics and Radioelectronics",
+			description: "Bachelor of Science in Information Technology",
+			location: "Minsk, Belarus",
+			startDate: "09/2016",
+			endDate: "07/2020",
 		},
+
+		// TODO: add courses ???
 	],
+	projects: [],
 	skills: {
-		technical: [
-			"JavaScript/TypeScript",
-			"React/Next.js",
-			"Node.js",
-			"Python",
-			"SQL",
-			"Git",
-		],
-		languages: ["JavaScript", "TypeScript", "Python", "Java", "SQL"],
-		tools: ["VS Code", "Git", "Docker", "AWS", "Figma", "Postman"],
-		soft: [
-			"Problem Solving",
-			"Team Leadership",
-			"Communication",
-			"Project Management",
-			"Mentoring",
-		],
+		primary: [],
+		secondary: [],
 	},
-	projects: [
-		{
-			name: "Project Name",
-			description:
-				"Brief description of what the project does and its purpose",
-			technologies: ["React", "TypeScript", "Node.js", "MongoDB"],
-			url: "https://yourproject.com",
-			github: "https://github.com/yourusername/project",
-			startDate: "2023-06",
-			endDate: "2023-12",
-			highlights: [
-				"Key achievement or feature",
-				"Technical challenge solved",
-				"Impact or result achieved",
-			],
-		},
-	],
-	certifications: [
-		{
-			name: "AWS Certified Developer",
-			issuer: "Amazon Web Services",
-			date: "2023-08",
-			url: "https://aws.amazon.com/certification/",
-		},
-	],
-	languages: [
-		{
-			language: "English",
-			proficiency: "Native",
-		},
-		{
-			language: "Spanish",
-			proficiency: "Fluent",
-		},
-	],
 };
