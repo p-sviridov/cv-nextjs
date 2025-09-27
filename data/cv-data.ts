@@ -37,7 +37,7 @@ export const cvData: CVData = {
 		{
 			company: "Entrega Systems Group, Inc.",
 			position: "Frontend Developer",
-			location: "Minsk, Belarus",
+			location: "Troy, MI, USA",
 			startDate: "10/2021",
 			current: true,
 			description: [
@@ -89,7 +89,28 @@ export const cvData: CVData = {
 	],
 	projects: [],
 	skills: {
-		primary: [],
-		secondary: [],
+		primary: [
+			"TypeScript",
+			"JavaScript",
+			"Angular",
+			"React",
+			"Vue",
+			"AEM",
+			"Edge Delivery Service",
+			"SharePoint",
+			"Firebase",
+			"Git",
+		],
+		secondary: [
+			"Agile",
+			"Scrum",
+			"Kanban",
+			"Mocha",
+			"Jira",
+			"Selenium",
+			"Figma",
+			".Net Core",
+			"Razor Pages",
+		],
 	},
 };

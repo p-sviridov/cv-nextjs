@@ -1,4 +1,5 @@
 import { cvData } from "@/data/cv-data";
+import { CVData } from "@/data/cv-data.model";
 
 export default function Home() {
 	const data = cvData;
@@ -89,7 +90,112 @@ export default function Home() {
 			<section>
 				<h2 className="text-2xl font-bold">Experience</h2>
 				<hr className="mb-2" />
+				<ul>
+					{data.experience.map((experience) => (
+						<li className="mb-3" key={experience.company}>
+							<div
+								className="grid grid-cols-2 grid-rows-2"
+								key={experience.company}
+							>
+								<h3 className="font-bold text-lg">
+									{experience.company}
+								</h3>
+								<h4 className="font-bold text-right">
+									{experience.startDate} -{" "}
+									{experience.endDate ||
+										(experience.current && "Present")}
+								</h4>
+								<p>{experience.position}</p>
+								<p className="text-gray-500 italic text-right">
+									{experience.location}
+								</p>
+							</div>
+							{experience.technologies && (
+								<ul className="text-xs flex flex-row gap-2 text-gray-500 underline">
+									{experience.technologies.map((technology) => (
+										<li key={technology}>{technology}</li>
+									))}
+								</ul>
+							)}
+							<div className="flex flex-col p-1">
+								<ul className="list-disc px-10">
+									{experience.description.map((description) => (
+										<li key={description}>{description}</li>
+									))}
+								</ul>
+							</div>
+						</li>
+					))}
+				</ul>
 			</section>
+
+			<section>
+				<h2 className="text-2xl font-bold">Education</h2>
+				<hr className="mb-2" />
+				<ul>
+					{data.education.map((education) => (
+						<li className="mb-3" key={education.institution}>
+							<div className="grid [grid-template-columns:repeat(2,auto)] [grid-template-rows:repeat(2,auto)]">
+								<h3 className="font-bold text-lg">
+									{education.institution}
+								</h3>
+								<h4 className="font-bold text-right">
+									{education.startDate} - {education.endDate}
+								</h4>
+								<p>{education.description}</p>
+							</div>
+						</li>
+					))}
+				</ul>
+			</section>
+
+			{data.projects.length > 0 && (
+				<section>
+					<h2 className="text-2xl font-bold">Projects</h2>
+					<hr className="mb-2" />
+					<ul>
+						{data.projects.map((project) => (
+							<li className="mb-3" key={project.name}>
+								<div className="grid [grid-template-columns:repeat(2,auto)] [grid-template-rows:repeat(2,auto)]">
+									<h3 className="font-bold text-lg">{project.name}</h3>
+									<h4 className="font-bold text-right">
+										{project.startDate} - {project.endDate}
+									</h4>
+									<p>{project.description}</p>
+									<ul className="text-xs flex flex-row gap-2 text-gray-500 underline">
+										{project.technologies.map((technology) => (
+											<li key={technology}>{technology}</li>
+										))}
+									</ul>
+									<ul className="list-disc px-10">
+										{project.highlights?.map((highlight) => (
+											<li key={highlight}>{highlight}</li>
+										))}
+									</ul>
+								</div>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
+
+			<section>
+				<h2 className="text-2xl font-bold">Skills</h2>
+				<hr className="mb-2" />
+				<ul className="flex flex-row flex-wrap justify-center">
+					{data.skills.primary.map((skill) => (
+						<li className="font-bold underline mr-2" key={skill}>
+							{skill}
+						</li>
+					))}
+					{data.skills.secondary.map((skill) => (
+						<li className="underline mr-2" key={skill}>
+							{skill}
+						</li>
+					))}
+				</ul>
+			</section>
+			{/* TODO: add a function to render a section that receives content */}
 		</main>
 	);
 }
