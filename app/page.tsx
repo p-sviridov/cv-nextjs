@@ -195,7 +195,6 @@ export default function Home() {
 					))}
 				</ul>
 			</section>
-			{/* TODO: add a function to render a section that receives content */}
 		</main>
 	);
 }
