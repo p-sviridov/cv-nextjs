@@ -1,20 +1,19 @@
 import { cvData } from "@/data/cv-data";
-import { CVData } from "@/data/cv-data.model";
 
 export default function Home() {
 	const data = cvData;
 
 	return (
-		<main>
+		<main className="leading-5">
 			<section>
-				<h1 className="text-center text-3xl font-bold mt-6">
+				<h1 className="text-center text-3xl font-bold">
 					{data.personal.name}
 				</h1>
 				<p className="text-center text-xl">{data.personal.title}</p>
 				<p className="text-center text-sm text-gray-500">
 					{data.personal.location}
 				</p>
-				<p className="text-center text-lg p-2">{data.personal.summary}</p>
+				<p className="text-center p-2">{data.personal.summary}</p>
 				<ul className="flex flex-row gap-2 justify-between p-2">
 					{data.personal.phone && (
 						<li>
@@ -120,7 +119,14 @@ export default function Home() {
 							<div className="flex flex-col p-1">
 								<ul className="list-disc px-10">
 									{experience.description.map((description) => (
-										<li key={description}>{description}</li>
+										<li key={description.main}>
+											{description.main}
+											<ul className="list-disc px-6">
+												{description.details?.map((detail) => (
+													<li key={detail}>{detail}</li>
+												))}
+											</ul>
+										</li>
 									))}
 								</ul>
 							</div>
@@ -182,14 +188,14 @@ export default function Home() {
 			<section>
 				<h2 className="text-2xl font-bold">Skills</h2>
 				<hr className="mb-2" />
-				<ul className="flex flex-row flex-wrap justify-center">
+				<ul className="flex flex-row flex-wrap gap-x-4 gap-y-2 justify-center">
 					{data.skills.primary.map((skill) => (
-						<li className="font-bold underline mr-2" key={skill}>
+						<li className="font-bold underline decoration-1" key={skill}>
 							{skill}
 						</li>
 					))}
 					{data.skills.secondary.map((skill) => (
-						<li className="underline mr-2" key={skill}>
+						<li className="underline decoration-1" key={skill}>
 							{skill}
 						</li>
 					))}

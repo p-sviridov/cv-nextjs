@@ -22,7 +22,7 @@ export interface CVData {
 		startDate: string;
 		endDate?: string;
 		current: boolean;
-		description: string[];
+		description: { main: string; details?: string[] }[];
 		technologies?: string[];
 	}>;
 	education: Array<{
