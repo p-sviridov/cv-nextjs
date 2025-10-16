@@ -140,15 +140,16 @@ export default function Home() {
 				<hr className="mb-2" />
 				<ul>
 					{data.education.map((education) => (
-						<li className="mb-3" key={education.institution}>
+						<li className="mb-3" key={education.description}>
 							<div className="grid [grid-template-columns:repeat(2,auto)] [grid-template-rows:repeat(2,auto)]">
 								<h3 className="font-bold text-lg">
-									{education.institution}
+									{education.description}
 								</h3>
 								<h4 className="font-bold text-right">
-									{education.startDate} - {education.endDate}
+									{education.startDate}
+									{education.endDate && ` - ${education.endDate}`}
 								</h4>
-								<p>{education.description}</p>
+								<p>{education.institution}</p>
 							</div>
 						</li>
 					))}

@@ -117,6 +117,36 @@ export const cvData: CVData = {
 			startDate: "09/2016",
 			endDate: "07/2020",
 		},
+		{
+			institution: "Udemy.com - course by Maximilian Schwarzmüller",
+			description: "Angular - The Complete Guide",
+			location: "Online",
+			startDate: "06/2025",
+		},
+		{
+			institution: "Udemy.com - course by Andrei Neagoie, Yihua Zhang",
+			description: "Complete React Developer (w/ Redux, Hooks, GraphQL)",
+			location: "Online",
+			startDate: "03/2024",
+		},
+		{
+			institution: "Udemy.com - course by Andrei Neagoie, Daniel Schifano",
+			description: "Complete Web & Mobile Designer: UI/UX, Figma",
+			location: "Online",
+			startDate: "04/2024",
+		},
+		{
+			institution: "Udemy.com - course by Maximilian Schwarzmüller",
+			description: "Vue - The Complete Guide",
+			location: "Online",
+			startDate: "09/2023",
+		},
+		{
+			institution: "Udemy.com - course by Stephen Grider",
+			description: "Node with React: Fullstack Web Development",
+			location: "Online",
+			startDate: "02/2022",
+		},
 	],
 	projects: [],
 	skills: {
