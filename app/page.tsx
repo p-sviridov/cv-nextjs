@@ -1,10 +1,35 @@
+"use client";
+
 import { cvData } from "@/data/cv-data";
+import { generateAndDownloadCV } from "@/lib/docxBuilders";
 
 export default function Home() {
 	const data = cvData;
 
+	const handleDownloadDOCX = async () => {
+		try {
+			await generateAndDownloadCV(
+				data,
+				`${data.personal.name.replace(/\s+/g, "_")}_CV.docx`
+			);
+		} catch (error) {
+			console.error("Download failed:", error);
+			alert("Failed to generate CV document. Please try again.");
+		}
+	};
+
 	return (
 		<main className="leading-5">
+			{/* Download Button */}
+			<div className="text-center mb-4">
+				<button
+					onClick={handleDownloadDOCX}
+					className="text-gray-600 hover:text-gray-800 text-sm underline transition-colors duration-200 inline-flex items-center gap-1"
+				>
+					Download as .DOCX
+				</button>
+			</div>
+
 			<section>
 				<h1 className="text-center text-3xl font-bold">
 					{data.personal.name}
