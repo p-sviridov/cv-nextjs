@@ -14,21 +14,21 @@ import {
 
 // Margins: 1 inch on all sides
 export const DOCUMENT_MARGINS = {
-	top: convertInchesToTwip(1),
-	right: convertInchesToTwip(1),
-	bottom: convertInchesToTwip(1),
-	left: convertInchesToTwip(1),
+	top: convertInchesToTwip(0.25),
+	right: convertInchesToTwip(0.75),
+	bottom: convertInchesToTwip(0.25),
+	left: convertInchesToTwip(0.75),
 };
 
 // Font sizes (in half-points)
 export const FONT_SIZES = {
-	title: 24, // 12pt
-	heading1: 20, // 10pt
-	heading2: 18, // 9pt
-	heading3: 16, // 8pt
-	body: 14, // 7pt
-	small: 12, // 6pt
-	tiny: 10, // 5pt
+	title: 32, // 18pt
+	heading1: 32, // 16pt
+	heading2: 28, // 14pt
+	heading3: 24, // 12pt
+	body: 20, // 10pt
+	small: 18, // 9pt
+	tiny: 14, // 7pt
 } as const;
 
 // Spacing (in twips)
@@ -41,11 +41,11 @@ export const SPACING = {
 
 // Colors (hex values)
 export const COLORS = {
-	primary: "2C3E50", // Dark blue-gray
+	primary: "020403", // Obsidian
 	secondary: "7F8C8D", // Medium gray
 	accent: "3498DB", // Blue
 	muted: "95A5A6", // Light gray
-	text: "2C3E50", // Dark text
+	text: "020403", // Obsidian
 } as const;
 
 /**
@@ -59,12 +59,10 @@ export function createTitleParagraph(text: string): Paragraph {
 				bold: true,
 				size: FONT_SIZES.title,
 				color: COLORS.primary,
+				font: "Calibri",
 			}),
 		],
 		alignment: AlignmentType.CENTER,
-		spacing: {
-			after: SPACING.section,
-		},
 	});
 }
 
@@ -77,7 +75,8 @@ export function createSubtitleParagraph(text: string): Paragraph {
 			new TextRun({
 				text,
 				size: FONT_SIZES.heading1,
-				color: COLORS.secondary,
+				color: COLORS.primary,
+				font: "Calibri",
 			}),
 		],
 		alignment: AlignmentType.CENTER,
@@ -98,6 +97,7 @@ export function createSectionHeading(text: string): Paragraph {
 				bold: true,
 				size: FONT_SIZES.heading1,
 				color: COLORS.primary,
+				font: "Calibri",
 			}),
 		],
 		heading: HeadingLevel.HEADING_1,
@@ -119,6 +119,7 @@ export function createSubsectionHeading(text: string): Paragraph {
 				bold: true,
 				size: FONT_SIZES.heading2,
 				color: COLORS.primary,
+				font: "Calibri",
 			}),
 		],
 		spacing: {
@@ -154,6 +155,7 @@ export function createBodyParagraph(
 				italics: options?.italic,
 				size: FONT_SIZES.body,
 				color: COLORS.text,
+				font: "Calibri",
 			}),
 		],
 		spacing: {
@@ -175,6 +177,7 @@ export function createBulletParagraph(
 				text,
 				size: FONT_SIZES.body,
 				color: COLORS.text,
+				font: "Calibri",
 			}),
 		],
 		bullet: {
@@ -196,6 +199,7 @@ export function createContactParagraph(text: string, url?: string): Paragraph {
 					text,
 					size: FONT_SIZES.body,
 					color: COLORS.accent,
+					font: "Calibri",
 				}),
 			]
 		: [
@@ -203,6 +207,7 @@ export function createContactParagraph(text: string, url?: string): Paragraph {
 					text,
 					size: FONT_SIZES.body,
 					color: COLORS.text,
+					font: "Calibri",
 				}),
 			];
 
@@ -226,6 +231,7 @@ export function createDateLocationParagraph(text: string): Paragraph {
 				size: FONT_SIZES.small,
 				color: COLORS.muted,
 				italics: true,
+				font: "Calibri",
 			}),
 		],
 		alignment: AlignmentType.RIGHT,
@@ -245,6 +251,7 @@ export function createTechnologiesParagraph(technologies: string[]): Paragraph {
 				text: technologies.join(", "),
 				size: FONT_SIZES.small,
 				color: COLORS.muted,
+				font: "Calibri",
 			}),
 		],
 		spacing: {
@@ -263,6 +270,7 @@ export function createSummaryParagraph(text: string): Paragraph {
 				text,
 				size: FONT_SIZES.body,
 				color: COLORS.text,
+				font: "Calibri",
 			}),
 		],
 		alignment: AlignmentType.JUSTIFIED,
@@ -286,6 +294,7 @@ export function createSkillsParagraph(
 				size: FONT_SIZES.body,
 				color: COLORS.text,
 				bold: isPrimary,
+				font: "Calibri",
 			}),
 		],
 		spacing: {

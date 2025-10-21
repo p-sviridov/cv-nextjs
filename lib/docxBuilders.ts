@@ -36,43 +36,31 @@ function buildPersonalSection(personal: CVData["personal"]): Paragraph[] {
 	// Location
 	paragraphs.push(createContactParagraph(personal.location));
 
-	// Contact information
+	// Contact information - combine all into one line separated by dots
+	const contactItems: string[] = [];
+
 	if (personal.email) {
-		paragraphs.push(
-			createContactParagraph(personal.email, `mailto:${personal.email}`)
-		);
+		contactItems.push(personal.email);
 	}
 	if (personal.phone) {
-		paragraphs.push(
-			createContactParagraph(personal.phone, `tel:${personal.phone}`)
-		);
+		contactItems.push(personal.phone);
 	}
 	if (personal.linkedin) {
-		paragraphs.push(
-			createContactParagraph(
-				personal.linkedin.replace(/^https?:\/\//, ""),
-				personal.linkedin
-			)
-		);
+		contactItems.push(personal.linkedin.replace(/^https?:\/\//, ""));
 	}
 	if (personal.github) {
-		paragraphs.push(
-			createContactParagraph(
-				personal.github.replace(/^https?:\/\//, ""),
-				personal.github
-			)
-		);
+		contactItems.push(personal.github.replace(/^https?:\/\//, ""));
 	}
 	if (personal.telegram) {
-		paragraphs.push(
-			createContactParagraph(
-				`@${personal.telegram.split("/").pop()}`,
-				personal.telegram
-			)
-		);
+		contactItems.push(`@${personal.telegram.split("/").pop()}`);
 	}
 	if (personal.website) {
-		paragraphs.push(createContactParagraph("Website", personal.website));
+		contactItems.push("Website");
+	}
+
+	if (contactItems.length > 0) {
+		const contactText = contactItems.join(" • ");
+		paragraphs.push(createContactParagraph(contactText));
 	}
 
 	// Summary
