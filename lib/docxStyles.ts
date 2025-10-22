@@ -4,6 +4,9 @@ import {
 	HeadingLevel,
 	AlignmentType,
 	convertInchesToTwip,
+	TableRow,
+	TableCell,
+	WidthType,
 } from "docx";
 
 /**
@@ -22,10 +25,10 @@ export const DOCUMENT_MARGINS = {
 
 // Font sizes (in half-points)
 export const FONT_SIZES = {
-	title: 32, // 18pt
+	title: 32, // 16pt
 	heading1: 32, // 16pt
-	heading2: 28, // 14pt
-	heading3: 24, // 12pt
+	heading2: 24, // 12pt
+	heading3: 22, // 11pt
 	body: 20, // 10pt
 	small: 18, // 9pt
 	tiny: 14, // 7pt
@@ -43,7 +46,7 @@ export const SPACING = {
 export const COLORS = {
 	primary: "020403", // Obsidian
 	secondary: "7F8C8D", // Medium gray
-	accent: "3498DB", // Blue
+	accent: "545454", // Gray
 	muted: "95A5A6", // Light gray
 	text: "020403", // Obsidian
 } as const;
@@ -95,6 +98,7 @@ export function createSectionHeading(text: string): Paragraph {
 			new TextRun({
 				text,
 				bold: true,
+				underline: {},
 				size: FONT_SIZES.heading1,
 				color: COLORS.primary,
 				font: "Calibri",
@@ -124,7 +128,6 @@ export function createSubsectionHeading(text: string): Paragraph {
 		],
 		spacing: {
 			before: SPACING.paragraph,
-			after: SPACING.small,
 		},
 	});
 }
@@ -206,7 +209,7 @@ export function createContactParagraph(text: string, url?: string): Paragraph {
 				new TextRun({
 					text,
 					size: FONT_SIZES.body,
-					color: COLORS.text,
+					color: COLORS.accent,
 					font: "Calibri",
 				}),
 			];
@@ -300,5 +303,102 @@ export function createSkillsParagraph(
 		spacing: {
 			after: SPACING.paragraph,
 		},
+	});
+}
+
+/**
+ * Creates an education table row with description/institution on left and date/location on right
+ */
+export function createEducationTableRow(
+	description: string,
+	institution: string,
+	dateLocation: string
+): TableRow {
+	return new TableRow({
+		children: [
+			// Left cell (wide) - contains description and institution
+			new TableCell({
+				children: [
+					// Description paragraph
+					new Paragraph({
+						children: [
+							new TextRun({
+								text: description,
+								bold: true,
+								size: FONT_SIZES.heading2,
+								color: COLORS.primary,
+								font: "Calibri",
+							}),
+						],
+						spacing: {
+							after: SPACING.tiny,
+						},
+					}),
+					// Institution paragraph
+					new Paragraph({
+						children: [
+							new TextRun({
+								text: institution,
+								size: FONT_SIZES.body,
+								color: COLORS.text,
+								font: "Calibri",
+							}),
+						],
+						spacing: {
+							after: SPACING.tiny,
+						},
+					}),
+				],
+				width: {
+					size: 70,
+					type: WidthType.PERCENTAGE,
+				},
+				margins: {
+					top: convertInchesToTwip(0.05),
+					bottom: convertInchesToTwip(0.05),
+					left: convertInchesToTwip(0),
+					right: convertInchesToTwip(0),
+				},
+				borders: {
+					top: { style: "none", size: 0, color: "FFFFFF" },
+					bottom: { style: "none", size: 0, color: "FFFFFF" },
+					left: { style: "none", size: 0, color: "FFFFFF" },
+					right: { style: "none", size: 0, color: "FFFFFF" },
+				},
+			}),
+			// Right cell (narrow) - contains date and location
+			new TableCell({
+				children: [
+					new Paragraph({
+						children: [
+							new TextRun({
+								text: dateLocation,
+								size: FONT_SIZES.small,
+								color: COLORS.muted,
+								italics: true,
+								font: "Calibri",
+							}),
+						],
+						alignment: AlignmentType.RIGHT,
+					}),
+				],
+				width: {
+					size: 30,
+					type: WidthType.PERCENTAGE,
+				},
+				margins: {
+					top: convertInchesToTwip(0.05),
+					bottom: convertInchesToTwip(0.05),
+					left: convertInchesToTwip(0),
+					right: convertInchesToTwip(0),
+				},
+				borders: {
+					top: { style: "none", size: 0, color: "FFFFFF" },
+					bottom: { style: "none", size: 0, color: "FFFFFF" },
+					left: { style: "none", size: 0, color: "FFFFFF" },
+					right: { style: "none", size: 0, color: "FFFFFF" },
+				},
+			}),
+		],
 	});
 }

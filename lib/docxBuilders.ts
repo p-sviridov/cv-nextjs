@@ -1,4 +1,4 @@
-import { Document, Paragraph, Packer } from "docx";
+import { Document, Paragraph, Packer, Table } from "docx";
 import { CVData } from "@/data/cv-data.model";
 import {
 	DOCUMENT_MARGINS,
@@ -13,6 +13,7 @@ import {
 	createTechnologiesParagraph,
 	createSummaryParagraph,
 	createSkillsParagraph,
+	createEducationTableRow,
 } from "./docxStyles";
 
 /**
@@ -135,33 +136,53 @@ function buildExperienceSection(experience: CVData["experience"]): Paragraph[] {
 /**
  * Builds the education section
  */
-function buildEducationSection(education: CVData["education"]): Paragraph[] {
-	const paragraphs: Paragraph[] = [];
+function buildEducationSection(
+	education: CVData["education"]
+): (Paragraph | Table)[] {
+	const elements: (Paragraph | Table)[] = [];
 
-	paragraphs.push(createSectionHeading("Education"));
+	elements.push(createSectionHeading("Education"));
 
-	education.forEach((edu) => {
-		// Degree/Description
-		paragraphs.push(createSubsectionHeading(edu.description));
+	if (education.length > 0) {
+		// Create table rows for each education entry
+		const tableRows = education.map((edu) => {
+			// Dates and location
+			const dateRange = edu.endDate
+				? `${edu.startDate} - ${edu.endDate}`
+				: edu.startDate;
 
-		// Institution
-		paragraphs.push(createBodyParagraph(edu.institution));
+			const locationText = edu.location
+				? `${dateRange} • ${edu.location}`
+				: dateRange;
 
-		// Dates and location
-		const dateRange = edu.endDate
-			? `${edu.startDate} - ${edu.endDate}`
-			: edu.startDate;
+			return createEducationTableRow(
+				edu.description,
+				edu.institution,
+				locationText
+			);
+		});
 
-		const locationText = edu.location
-			? `${dateRange} • ${edu.location}`
-			: dateRange;
-		paragraphs.push(createDateLocationParagraph(locationText));
+		// Create the table
+		const educationTable = new Table({
+			rows: tableRows,
+			width: {
+				size: 100,
+				type: "pct",
+			},
+			borders: {
+				top: { style: "none", size: 0, color: "FFFFFF" },
+				bottom: { style: "none", size: 0, color: "FFFFFF" },
+				left: { style: "none", size: 0, color: "FFFFFF" },
+				right: { style: "none", size: 0, color: "FFFFFF" },
+				insideVertical: { style: "none", size: 0, color: "FFFFFF" },
+				insideHorizontal: { style: "none", size: 0, color: "FFFFFF" },
+			},
+		});
 
-		// Add spacing between education entries
-		paragraphs.push(createBodyParagraph("", { spacing: "small" }));
-	});
+		elements.push(educationTable);
+	}
 
-	return paragraphs;
+	return elements;
 }
 
 /**
@@ -241,15 +262,15 @@ function buildSkillsSection(skills: CVData["skills"]): Paragraph[] {
  * Main function to build the complete DOCX document
  */
 export async function buildCVDocument(cvData: CVData): Promise<Document> {
-	const paragraphs: Paragraph[] = [];
+	const elements: (Paragraph | Table)[] = [];
 
 	// Build all sections
-	paragraphs.push(...buildPersonalSection(cvData.personal));
-	paragraphs.push(...buildLanguagesSection(cvData.languages));
-	paragraphs.push(...buildExperienceSection(cvData.experience));
-	paragraphs.push(...buildEducationSection(cvData.education));
-	paragraphs.push(...buildProjectsSection(cvData.projects));
-	paragraphs.push(...buildSkillsSection(cvData.skills));
+	elements.push(...buildPersonalSection(cvData.personal));
+	elements.push(...buildLanguagesSection(cvData.languages));
+	elements.push(...buildExperienceSection(cvData.experience));
+	elements.push(...buildEducationSection(cvData.education));
+	elements.push(...buildProjectsSection(cvData.projects));
+	elements.push(...buildSkillsSection(cvData.skills));
 
 	// Create the document
 	const doc = new Document({
@@ -260,7 +281,7 @@ export async function buildCVDocument(cvData: CVData): Promise<Document> {
 						margin: DOCUMENT_MARGINS,
 					},
 				},
-				children: paragraphs,
+				children: elements,
 			},
 		],
 	});
