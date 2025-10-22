@@ -7,6 +7,7 @@ import {
 	TableRow,
 	TableCell,
 	WidthType,
+	BorderStyle,
 } from "docx";
 
 /**
@@ -26,7 +27,7 @@ export const DOCUMENT_MARGINS = {
 // Font sizes (in half-points)
 export const FONT_SIZES = {
 	title: 32, // 16pt
-	heading1: 32, // 16pt
+	heading1: 28, // 14pt
 	heading2: 24, // 12pt
 	heading3: 22, // 11pt
 	body: 20, // 10pt
@@ -62,7 +63,7 @@ export function createTitleParagraph(text: string): Paragraph {
 				bold: true,
 				size: FONT_SIZES.title,
 				color: COLORS.primary,
-				font: "Calibri",
+				font: "Arial",
 			}),
 		],
 		alignment: AlignmentType.CENTER,
@@ -79,7 +80,7 @@ export function createSubtitleParagraph(text: string): Paragraph {
 				text,
 				size: FONT_SIZES.heading1,
 				color: COLORS.primary,
-				font: "Calibri",
+				font: "Arial",
 			}),
 		],
 		alignment: AlignmentType.CENTER,
@@ -90,7 +91,7 @@ export function createSubtitleParagraph(text: string): Paragraph {
 }
 
 /**
- * Creates a section heading
+ * Creates a section heading with bottom border divider
  */
 export function createSectionHeading(text: string): Paragraph {
 	return new Paragraph({
@@ -98,13 +99,20 @@ export function createSectionHeading(text: string): Paragraph {
 			new TextRun({
 				text,
 				bold: true,
-				underline: {},
 				size: FONT_SIZES.heading1,
 				color: COLORS.primary,
-				font: "Calibri",
+				font: "Arial",
 			}),
 		],
 		heading: HeadingLevel.HEADING_1,
+		border: {
+			bottom: {
+				style: BorderStyle.SINGLE,
+				size: 6, // Line thickness
+				color: COLORS.primary,
+				space: 0.5, // Space between text and line
+			},
+		},
 		spacing: {
 			before: SPACING.section,
 			after: SPACING.paragraph,
@@ -123,7 +131,7 @@ export function createSubsectionHeading(text: string): Paragraph {
 				bold: true,
 				size: FONT_SIZES.heading2,
 				color: COLORS.primary,
-				font: "Calibri",
+				font: "Arial",
 			}),
 		],
 		spacing: {
@@ -158,7 +166,7 @@ export function createBodyParagraph(
 				italics: options?.italic,
 				size: FONT_SIZES.body,
 				color: COLORS.text,
-				font: "Calibri",
+				font: "Arial",
 			}),
 		],
 		spacing: {
@@ -180,7 +188,7 @@ export function createBulletParagraph(
 				text,
 				size: FONT_SIZES.body,
 				color: COLORS.text,
-				font: "Calibri",
+				font: "Arial",
 			}),
 		],
 		bullet: {
@@ -202,7 +210,7 @@ export function createContactParagraph(text: string, url?: string): Paragraph {
 					text,
 					size: FONT_SIZES.body,
 					color: COLORS.accent,
-					font: "Calibri",
+					font: "Arial",
 				}),
 			]
 		: [
@@ -210,7 +218,7 @@ export function createContactParagraph(text: string, url?: string): Paragraph {
 					text,
 					size: FONT_SIZES.body,
 					color: COLORS.accent,
-					font: "Calibri",
+					font: "Arial",
 				}),
 			];
 
@@ -234,7 +242,7 @@ export function createDateLocationParagraph(text: string): Paragraph {
 				size: FONT_SIZES.small,
 				color: COLORS.muted,
 				italics: true,
-				font: "Calibri",
+				font: "Arial",
 			}),
 		],
 		alignment: AlignmentType.RIGHT,
@@ -254,7 +262,7 @@ export function createTechnologiesParagraph(technologies: string[]): Paragraph {
 				text: technologies.join(", "),
 				size: FONT_SIZES.small,
 				color: COLORS.muted,
-				font: "Calibri",
+				font: "Arial",
 			}),
 		],
 		spacing: {
@@ -273,7 +281,7 @@ export function createSummaryParagraph(text: string): Paragraph {
 				text,
 				size: FONT_SIZES.body,
 				color: COLORS.text,
-				font: "Calibri",
+				font: "Arial",
 			}),
 		],
 		alignment: AlignmentType.JUSTIFIED,
@@ -297,7 +305,7 @@ export function createSkillsParagraph(
 				size: FONT_SIZES.body,
 				color: COLORS.text,
 				bold: isPrimary,
-				font: "Calibri",
+				font: "Arial",
 			}),
 		],
 		spacing: {
@@ -307,41 +315,86 @@ export function createSkillsParagraph(
 }
 
 /**
- * Creates an education table row with description/institution on left and date/location on right
+ * Creates a combined skills paragraph with primary skills bold and secondary skills normal
  */
-export function createEducationTableRow(
-	description: string,
-	institution: string,
+export function createCombinedSkillsParagraph(
+	primarySkills: string[],
+	secondarySkills: string[]
+): Paragraph {
+	const children: TextRun[] = [];
+
+	// Add primary skills (bold)
+	if (primarySkills.length > 0) {
+		children.push(
+			new TextRun({
+				text: primarySkills.join(", "),
+				size: FONT_SIZES.body,
+				color: COLORS.text,
+				bold: true,
+				font: "Arial",
+			})
+		);
+	}
+
+	// Add secondary skills (normal) with separator if primary skills exist
+	if (secondarySkills.length > 0) {
+		const separator = primarySkills.length > 0 ? ", " : "";
+		children.push(
+			new TextRun({
+				text: separator + secondarySkills.join(", "),
+				size: FONT_SIZES.body,
+				color: COLORS.text,
+				bold: false,
+				font: "Arial",
+			})
+		);
+	}
+
+	return new Paragraph({
+		children,
+		spacing: {
+			after: SPACING.paragraph,
+		},
+	});
+}
+
+/**
+ * Creates a unified table row with left content (title/subtitle) and right content (date/location)
+ * Used for both education and experience sections
+ */
+export function createTableRow(
+	title: string,
+	subtitle: string,
 	dateLocation: string
 ): TableRow {
 	return new TableRow({
 		children: [
-			// Left cell (wide) - contains description and institution
+			// Left cell (wide) - contains title and subtitle
 			new TableCell({
 				children: [
-					// Description paragraph
+					// Title paragraph
 					new Paragraph({
 						children: [
 							new TextRun({
-								text: description,
+								text: title,
 								bold: true,
 								size: FONT_SIZES.heading2,
 								color: COLORS.primary,
-								font: "Calibri",
+								font: "Arial",
 							}),
 						],
 						spacing: {
 							after: SPACING.tiny,
 						},
 					}),
-					// Institution paragraph
+					// Subtitle paragraph
 					new Paragraph({
 						children: [
 							new TextRun({
-								text: institution,
+								text: subtitle,
 								size: FONT_SIZES.body,
 								color: COLORS.text,
-								font: "Calibri",
+								font: "Arial",
 							}),
 						],
 						spacing: {
@@ -376,7 +429,7 @@ export function createEducationTableRow(
 								size: FONT_SIZES.small,
 								color: COLORS.muted,
 								italics: true,
-								font: "Calibri",
+								font: "Arial",
 							}),
 						],
 						alignment: AlignmentType.RIGHT,

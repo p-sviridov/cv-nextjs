@@ -12,8 +12,8 @@ import {
 	createDateLocationParagraph,
 	createTechnologiesParagraph,
 	createSummaryParagraph,
-	createSkillsParagraph,
-	createEducationTableRow,
+	createCombinedSkillsParagraph,
+	createTableRow,
 } from "./docxStyles";
 
 /**
@@ -91,46 +91,64 @@ function buildLanguagesSection(languages: CVData["languages"]): Paragraph[] {
 /**
  * Builds the experience section
  */
-function buildExperienceSection(experience: CVData["experience"]): Paragraph[] {
-	const paragraphs: Paragraph[] = [];
+function buildExperienceSection(
+	experience: CVData["experience"]
+): (Paragraph | Table)[] {
+	const elements: (Paragraph | Table)[] = [];
 
-	paragraphs.push(createSectionHeading("Experience"));
+	elements.push(createSectionHeading("Experience"));
 
 	experience.forEach((job) => {
-		// Company name
-		paragraphs.push(createSubsectionHeading(job.company));
-
-		// Position and dates
+		// Create table row for company/position and date/location
 		const dateRange = job.current
 			? `${job.startDate} - Present`
 			: `${job.startDate} - ${job.endDate}`;
 
-		paragraphs.push(createBodyParagraph(job.position, { bold: true }));
-		paragraphs.push(
-			createDateLocationParagraph(`${dateRange} • ${job.location}`)
+		const dateLocation = `${dateRange} • ${job.location}`;
+
+		const experienceTableRow = createTableRow(
+			job.company,
+			job.position,
+			dateLocation
 		);
+
+		// Create the table
+		const experienceTable = new Table({
+			rows: [experienceTableRow],
+			width: {
+				size: 100,
+				type: "pct",
+			},
+			borders: {
+				top: { style: "none", size: 0, color: "FFFFFF" },
+				bottom: { style: "none", size: 0, color: "FFFFFF" },
+				left: { style: "none", size: 0, color: "FFFFFF" },
+				right: { style: "none", size: 0, color: "FFFFFF" },
+				insideVertical: { style: "none", size: 0, color: "FFFFFF" },
+				insideHorizontal: { style: "none", size: 0, color: "FFFFFF" },
+			},
+		});
+
+		elements.push(experienceTable);
 
 		// Job description
 		job.description.forEach((desc) => {
-			paragraphs.push(createBulletParagraph(desc.main));
+			elements.push(createBulletParagraph(desc.main));
 
 			if (desc.details && desc.details.length > 0) {
 				desc.details.forEach((detail) => {
-					paragraphs.push(createBulletParagraph(detail, 1));
+					elements.push(createBulletParagraph(detail, 1));
 				});
 			}
 		});
 
 		// Technologies
 		if (job.technologies && job.technologies.length > 0) {
-			paragraphs.push(createTechnologiesParagraph(job.technologies));
+			elements.push(createTechnologiesParagraph(job.technologies));
 		}
-
-		// Add spacing between jobs
-		paragraphs.push(createBodyParagraph("", { spacing: "small" }));
 	});
 
-	return paragraphs;
+	return elements;
 }
 
 /**
@@ -155,11 +173,7 @@ function buildEducationSection(
 				? `${dateRange} • ${edu.location}`
 				: dateRange;
 
-			return createEducationTableRow(
-				edu.description,
-				edu.institution,
-				locationText
-			);
+			return createTableRow(edu.description, edu.institution, locationText);
 		});
 
 		// Create the table
@@ -245,15 +259,11 @@ function buildSkillsSection(skills: CVData["skills"]): Paragraph[] {
 
 	paragraphs.push(createSectionHeading("Skills"));
 
-	// Primary skills
-	if (skills.primary.length > 0) {
-		paragraphs.push(createSkillsParagraph(skills.primary, true));
-	}
-
-	// Secondary skills
-	if (skills.secondary.length > 0) {
-		paragraphs.push(createSkillsParagraph(skills.secondary, false));
-	}
+	// Combine primary and secondary skills into one line
+	// Primary skills will be bold, secondary skills will be normal
+	paragraphs.push(
+		createCombinedSkillsParagraph(skills.primary, skills.secondary)
+	);
 
 	return paragraphs;
 }
