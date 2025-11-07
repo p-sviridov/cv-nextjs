@@ -19,9 +19,9 @@ export default function Home() {
 	};
 
 	return (
-		<main className="leading-5">
+		<main className="leading-5 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 			{/* Download Button */}
-			<div className="text-center mb-4">
+			<div className="text-center">
 				<button
 					onClick={handleDownloadDOCX}
 					className="text-gray-600 hover:text-gray-800 text-sm underline transition-colors duration-200 inline-flex items-center gap-1"
@@ -30,7 +30,7 @@ export default function Home() {
 				</button>
 			</div>
 
-			<section>
+			<section className="space-y-2">
 				<h1 className="text-center text-3xl font-bold">
 					{data.personal.name}
 				</h1>
@@ -38,8 +38,10 @@ export default function Home() {
 				<p className="text-center text-sm text-gray-500">
 					{data.personal.location}
 				</p>
-				<p className="text-center p-2">{data.personal.summary}</p>
-				<ul className="flex flex-row gap-2 justify-between p-2">
+				<p className="text-center text-sm text-gray-700">
+					{data.personal.summary}
+				</p>
+				<ul className="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-center md:justify-between">
 					{data.personal.phone && (
 						<li>
 							<a
@@ -95,58 +97,60 @@ export default function Home() {
 					)}
 				</ul>
 			</section>
-			<section>
+			<section className="space-y-3">
 				<h2 className="text-2xl font-bold">Languages</h2>
 				<hr className="mb-2" />
-				<ul className="flex flex-row gap-8 mb-6">
+				<ul className="flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
 					{data.languages.map((language) => (
 						<li key={language.language}>
-							<span className="text-xl font-bold">
+							<span className="text-lg font-bold sm:text-xl">
 								{language.language}
 							</span>
-							<span className="ml-1 text-gray-500">
+							<span className="ml-1 text-sm text-gray-500 sm:text-base">
 								({language.proficiency})
 							</span>
 						</li>
 					))}
 				</ul>
 			</section>
-			<section>
+			<section className="space-y-4">
 				<h2 className="text-2xl font-bold">Experience</h2>
 				<hr className="mb-2" />
-				<ul>
+				<ul className="space-y-6">
 					{data.experience.map((experience) => (
 						<li className="mb-3" key={experience.company}>
 							<div
-								className="grid grid-cols-2 grid-rows-2"
+								className="grid gap-y-1 md:grid-cols-[minmax(0,1fr)_auto] md:gap-x-4"
 								key={experience.company}
 							>
 								<h3 className="font-bold text-lg">
 									{experience.company}
 								</h3>
-								<h4 className="font-bold text-right">
+								<h4 className="font-bold md:text-right">
 									{experience.startDate} -{" "}
 									{experience.endDate ||
 										(experience.current && "Present")}
 								</h4>
-								<p>{experience.position}</p>
-								<p className="text-gray-500 italic text-right">
+								<p className="text-sm text-gray-700 md:text-base">
+									{experience.position}
+								</p>
+								<p className="text-gray-500 italic md:text-right">
 									{experience.location}
 								</p>
 							</div>
 							{experience.technologies && (
-								<ul className="text-xs flex flex-row gap-2 text-gray-500 underline">
+								<ul className="text-xs flex flex-wrap gap-2 text-gray-500 underline">
 									{experience.technologies.map((technology) => (
 										<li key={technology}>{technology}</li>
 									))}
 								</ul>
 							)}
 							<div className="flex flex-col p-1">
-								<ul className="list-disc px-10">
+								<ul className="list-disc pl-6 md:pl-10 space-y-2">
 									{experience.description.map((description) => (
 										<li key={description.main}>
 											{description.main}
-											<ul className="list-disc px-6">
+											<ul className="list-disc pl-5 md:pl-6 space-y-1">
 												{description.details?.map((detail) => (
 													<li key={detail}>{detail}</li>
 												))}
@@ -160,17 +164,17 @@ export default function Home() {
 				</ul>
 			</section>
 
-			<section>
+			<section className="space-y-4">
 				<h2 className="text-2xl font-bold">Education</h2>
 				<hr className="mb-2" />
-				<ul>
+				<ul className="space-y-4">
 					{data.education.map((education) => (
 						<li className="mb-3" key={education.description}>
-							<div className="grid [grid-template-columns:repeat(2,auto)] [grid-template-rows:repeat(2,auto)]">
+							<div className="grid gap-y-1 md:grid-cols-[minmax(0,1fr)_auto] md:gap-x-4">
 								<h3 className="font-bold text-lg">
 									{education.description}
 								</h3>
-								<h4 className="font-bold text-right">
+								<h4 className="font-bold md:text-right">
 									{education.startDate}
 									{education.endDate && ` - ${education.endDate}`}
 								</h4>
@@ -182,24 +186,24 @@ export default function Home() {
 			</section>
 
 			{data.projects.length > 0 && (
-				<section>
+				<section className="space-y-4">
 					<h2 className="text-2xl font-bold">Projects</h2>
 					<hr className="mb-2" />
-					<ul>
+					<ul className="space-y-6">
 						{data.projects.map((project) => (
 							<li className="mb-3" key={project.name}>
-								<div className="grid [grid-template-columns:repeat(2,auto)] [grid-template-rows:repeat(2,auto)]">
+								<div className="grid gap-y-1 md:grid-cols-[minmax(0,1fr)_auto] md:gap-x-4">
 									<h3 className="font-bold text-lg">{project.name}</h3>
-									<h4 className="font-bold text-right">
+									<h4 className="font-bold md:text-right">
 										{project.startDate} - {project.endDate}
 									</h4>
 									<p>{project.description}</p>
-									<ul className="text-xs flex flex-row gap-2 text-gray-500 underline">
+									<ul className="text-xs flex flex-wrap gap-2 text-gray-500 underline">
 										{project.technologies.map((technology) => (
 											<li key={technology}>{technology}</li>
 										))}
 									</ul>
-									<ul className="list-disc px-10">
+									<ul className="list-disc pl-6 md:pl-10 space-y-2">
 										{project.highlights?.map((highlight) => (
 											<li key={highlight}>{highlight}</li>
 										))}
@@ -211,7 +215,7 @@ export default function Home() {
 				</section>
 			)}
 
-			<section>
+			<section className="space-y-3">
 				<h2 className="text-2xl font-bold">Skills</h2>
 				<hr className="mb-2" />
 				<ul className="flex flex-row flex-wrap gap-x-4 gap-y-2 justify-center">
