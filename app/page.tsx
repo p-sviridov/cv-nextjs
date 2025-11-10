@@ -7,6 +7,7 @@ import getCvFileName from "@/lib/getCvFileName";
 export default function Home() {
 	const data = cvData;
 	console.log("env? ", process.env.NODE_ENV);
+	
 
 	const handleDownloadDOCX = async () => {
 		try {
