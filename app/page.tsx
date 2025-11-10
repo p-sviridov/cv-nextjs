@@ -2,6 +2,7 @@
 
 import { cvData } from "@/data/cv-data";
 import { generateAndDownloadCV } from "@/lib/docxBuilders";
+import getCvFileName from "@/lib/getCvFileName";
 
 export default function Home() {
 	const data = cvData;
@@ -10,7 +11,7 @@ export default function Home() {
 		try {
 			await generateAndDownloadCV(
 				data,
-				`${data.personal.name.replace(/\s+/g, "_")}_CV.docx`
+				getCvFileName(data.personal.name, "docx")
 			);
 		} catch (error) {
 			console.error("Download failed:", error);
@@ -18,15 +19,26 @@ export default function Home() {
 		}
 	};
 
+	const handleDownloadPDF = () => {
+		const pdfFilename = getCvFileName(data.personal.name, "pdf");
+		window.location.assign(`/${pdfFilename}`);
+	};
+
 	return (
 		<main className="leading-5 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 			{/* Download Button */}
-			<div className="text-center">
+			<div className="text-center flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
 				<button
 					onClick={handleDownloadDOCX}
 					className="text-gray-600 hover:text-gray-800 text-sm underline transition-colors duration-200 inline-flex items-center gap-1"
 				>
 					Download as .DOCX
+				</button>
+				<button
+					onClick={handleDownloadPDF}
+					className="text-gray-600 hover:text-gray-800 text-sm underline transition-colors duration-200 inline-flex items-center gap-1"
+				>
+					Download as .PDF
 				</button>
 			</div>
 

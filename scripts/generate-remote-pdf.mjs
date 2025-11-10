@@ -6,21 +6,28 @@ import { fileURLToPath } from "node:url";
 
 import puppeteer from "puppeteer";
 
+// make sure it's the same name as in the data/cv-data.ts but with underscores instead of spaces
+const PERSONAL_NAME = "Pavel_Sviridov";
 const TARGET_URL = "https://p-sviridov.github.io/cv-nextjs/";
 const SCALE = 0.9;
 const PDF_MARGIN_MM = {
-	top: "18mm",
-	right: "16mm",
-	bottom: "18mm",
-	left: "16mm",
+	top: "12mm",
+	right: "12mm",
+	bottom: "12mm",
+	left: "12mm",
 };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const [, , outputArg] = process.argv;
-const defaultOutputPath = path.resolve(__dirname, "../out/cv.pdf");
-const outputPath = outputArg ? path.resolve(process.cwd(), outputArg) : defaultOutputPath;
+const defaultOutputPath = path.resolve(
+	__dirname,
+	`../public/${PERSONAL_NAME}_CV.pdf`
+);
+const outputPath = outputArg
+	? path.resolve(process.cwd(), outputArg)
+	: defaultOutputPath;
 
 async function main() {
 	const browser = await puppeteer.launch({ headless: true });
@@ -68,4 +75,3 @@ main().catch((error) => {
 	console.error(error);
 	process.exitCode = 1;
 });
-
