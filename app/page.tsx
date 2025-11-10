@@ -21,7 +21,7 @@ export default function Home() {
 
 	const handleDownloadPDF = () => {
 		const pdfFilename = getCvFileName(data.personal.name, "pdf");
-		window.location.assign(`/${pdfFilename}`);
+		window.location.assign(`/cv-nextjs/${pdfFilename}`);
 	};
 
 	return (
