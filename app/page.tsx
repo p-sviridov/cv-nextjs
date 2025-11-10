@@ -6,9 +6,6 @@ import getCvFileName from "@/lib/getCvFileName";
 
 export default function Home() {
 	const data = cvData;
-	console.log("env? ", process.env.NODE_ENV);
-	console.log("github pages? ", process.env.GITHUB_PAGES);
-	console.log("Runtime Config Check:", process.env.NEXT_PUBLIC_BASE_PATH);
 
 	const handleDownloadDOCX = async () => {
 		try {
@@ -22,6 +19,8 @@ export default function Home() {
 		}
 	};
 
+	const pdfPath = `${process.env.NODE_ENV === "production" ? "/cv-nextjs" : ""}/${getCvFileName(data.personal.name, "pdf")}`;
+
 	return (
 		<main className="leading-5 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 			{/* Download Button */}
@@ -33,7 +32,7 @@ export default function Home() {
 					Generate .DOCX
 				</button>
 				<a
-					href={`/${getCvFileName(data.personal.name, "pdf")}`}
+					href={pdfPath}
 					className="text-gray-600 hover:text-gray-800 text-sm underline transition-colors duration-200 inline-flex items-center gap-1"
 				>
 					Download as .PDF
