@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
 
-// Only use basePath for GitHub Pages deployment
-const isGithubPages = process.env.GITHUB_PAGES === "true";
+// Only use basePath for production (GitHub Pages)
+const isProduction = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
 	output: "export",
 	trailingSlash: true,
-	basePath: isGithubPages ? "/cv-nextjs" : "",
+	basePath: isProduction ? "/cv-nextjs" : "",
 	images: {
 		unoptimized: true,
 	},
