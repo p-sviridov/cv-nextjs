@@ -7,13 +7,8 @@ import getCvFileName from "@/lib/getCvFileName";
 export default function Home() {
 	const data = cvData;
 	console.log("env? ", process.env.NODE_ENV);
-	console.log("Runtime Config Check:", {
-		NODE_ENV: process.env.NODE_ENV,
-		basePath: process.env.NEXT_PUBLIC_BASE_PATH || "not set",
-		windowLocation:
-			typeof window !== "undefined" ? window.location.pathname : "SSR",
-		pdfPath: `/${getCvFileName(data.personal.name, "pdf")}`,
-	});
+	console.log("github pages? ", process.env.GITHUB_PAGES);
+	console.log("Runtime Config Check:", process.env.NEXT_PUBLIC_BASE_PATH);
 
 	const handleDownloadDOCX = async () => {
 		try {
