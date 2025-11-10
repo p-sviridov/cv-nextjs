@@ -20,12 +20,6 @@ export default function Home() {
 		}
 	};
 
-	const handleDownloadPDF = () => {
-		const pdfFilename = getCvFileName(data.personal.name, "pdf");
-		// basePath is automatically prepended by Next.js for GitHub Pages
-		window.location.assign(`/${pdfFilename}`);
-	};
-
 	return (
 		<main className="leading-5 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 			{/* Download Button */}
@@ -34,14 +28,14 @@ export default function Home() {
 					onClick={handleDownloadDOCX}
 					className="text-gray-600 hover:text-gray-800 text-sm underline transition-colors duration-200 inline-flex items-center gap-1"
 				>
-					Download as .DOCX
+					Generate .DOCX
 				</button>
-				<button
-					onClick={handleDownloadPDF}
+				<a
+					href={`/${getCvFileName(data.personal.name, "pdf")}`}
 					className="text-gray-600 hover:text-gray-800 text-sm underline transition-colors duration-200 inline-flex items-center gap-1"
 				>
 					Download as .PDF
-				</button>
+				</a>
 			</div>
 
 			<section className="space-y-2">
