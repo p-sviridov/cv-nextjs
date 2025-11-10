@@ -11,7 +11,8 @@
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"format:staged": "prettier --write --list-different",
-		"export": "next build && next export"
+		"export": "next build && next export",
+		"generate:pdf": "node scripts/generate-remote-pdf.mjs"
 	},
 	"dependencies": {
 		"@types/file-saver": "^2.0.7",
@@ -32,6 +33,7 @@
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-prettier": "^5.5.4",
 		"prettier": "^3.6.2",
+		"puppeteer": "^24.3.0",
 		"tailwindcss": "^4",
 		"typescript": "^5"
 	}
