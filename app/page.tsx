@@ -21,7 +21,8 @@ export default function Home() {
 
 	const handleDownloadPDF = () => {
 		const pdfFilename = getCvFileName(data.personal.name, "pdf");
-		window.location.assign(`/cv-nextjs/${pdfFilename}`);
+		// basePath is automatically prepended by Next.js for GitHub Pages
+		window.location.assign(`/${pdfFilename}`);
 	};
 
 	return (
