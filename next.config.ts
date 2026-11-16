@@ -15,6 +15,8 @@ const pdfHash = createHash("sha256")
 
 const nextConfig: NextConfig = {
 	output: "export",
+	// GitHub Pages serves the site under /cv-nextjs.
+	basePath: process.env.NODE_ENV === "production" ? "/cv-nextjs" : "",
 	trailingSlash: true,
 	images: {
 		unoptimized: true,

@@ -38,12 +38,8 @@ jobs:
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          # Automatically inject basePath in your Next.js configuration file and disable
-          # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
-          #
-          # You may remove this line if you want to manage the configuration yourself.
-          static_site_generator: next
+        # basePath, static export and unoptimized images are set in next.config.ts,
+        # so no config injection here (it would replace next.config.ts with a .js file).
       - name: Install pnpm
         run: npm install -g pnpm@9.15.0
       - name: Install dependencies
