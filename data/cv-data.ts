@@ -10,7 +10,7 @@ export const cvData: CVData = {
 		linkedin: "https://linkedin.com/in/p-sviridov",
 		github: "https://github.com/p-sviridov",
 		// telegram: "https://t.me/pavlentiysv",
-		summary: `Frontend Engineer with 5 years of experience building modern web applications using Angular, React, and Vue. Strong background in delivering scalable, high-quality solutions across diverse industries. Experienced in collaborating with cross-functional teams, adopting new technologies, and driving projects from concept to launch. Passionate about creating intuitive, impactful software that improves everyday experiences.`,
+		summary: `Frontend Engineer with 6 years of experience building modern web applications using Angular, React, and Vue. Strong background in delivering scalable, high-quality solutions across diverse industries. Experienced in collaborating with cross-functional teams, adopting new technologies, and driving projects from concept to launch. Passionate about creating intuitive, impactful software that improves everyday experiences.`,
 	},
 	languages: [
 		{
@@ -33,10 +33,19 @@ export const cvData: CVData = {
 	experience: [
 		{
 			company: "Entrega Systems Group, Inc.",
+			position: "Adobe Solutions Designer",
+			location: "Troy, MI, USA",
+			startDate: "05/2026",
+			current: true,
+			description: [],
+		},
+		{
+			company: "Entrega Systems Group, Inc.",
 			position: "Frontend Developer",
 			location: "Troy, MI, USA",
 			startDate: "10/2021",
-			current: true,
+			endDate: "05/2026",
+			current: false,
 			description: [
 				{
 					main: "Supported and enhanced B2B platforms for General Motors and their dealer network.",

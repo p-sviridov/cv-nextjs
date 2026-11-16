@@ -127,10 +127,10 @@ export default function Home() {
 				<hr className="mb-2" />
 				<ul className="space-y-6">
 					{data.experience.map((experience) => (
-						<li className="mb-3" key={experience.company}>
+						<li className="mb-3" key={`${experience.company}-${experience.position}`}>
 							<div
 								className="grid gap-y-1 md:grid-cols-[minmax(0,1fr)_auto] md:gap-x-4"
-								key={experience.company}
+								key={`${experience.company}-${experience.position}`}
 							>
 								<h3 className="font-bold text-lg">
 									{experience.company}
