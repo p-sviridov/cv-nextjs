@@ -19,7 +19,7 @@ export default function Home() {
 		}
 	};
 
-	const pdfPath = `${process.env.NODE_ENV === "production" ? "/cv-nextjs" : ""}/${getCvFileName(data.personal.name, "pdf")}`;
+	const pdfPath = `${process.env.NODE_ENV === "production" ? "/cv-nextjs" : ""}/${getCvFileName(data.personal.name, "pdf")}?v=${process.env.NEXT_PUBLIC_CV_PDF_HASH}`;
 
 	return (
 		<main className="leading-5 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
